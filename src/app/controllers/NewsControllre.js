@@ -5,10 +5,10 @@ class NewsController{
         res.render('news');
     }
 
-    // [GET] /slus
+    // [GET] /slug
     show(req, res) {
         res.send('Trúc Quỳnh');
     }
 }
 
-module.exports = new NewsController;
+module.exports = new NewsController();

@@ -16,4 +16,4 @@ class SitesController{
     }
 }
 
-module.exports = new SitesController;
+module.exports = new SitesController();
