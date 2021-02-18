@@ -12,8 +12,19 @@ class CourseController{
                 
             })
             .catch(next)
-        
-        
+    }
+    //[GET]
+    create(req, res, next) {
+        res.render('courses/create');
+    }
+    //[POST]
+    store(req, res, next) {
+        const course = new Course(req.body);
+        course.save()
+            .then(() => res.redirect('/'))
+            .catch(err => {
+                
+            })
     }
 }
 
