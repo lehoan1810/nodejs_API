@@ -1,0 +1,79 @@
+<div class="mt-4">
+    <h3>Khóa học của tôi</h3>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Stt</th>
+                <th scope="col">Trình độ</th>
+                <th scope="col">Nội dung</th>
+                <th scope="col">Trình độ</th>
+                <th scope="col" colspan="2">thời gian tạo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.level}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
+                    <a href="" class="btn btn-link" data-toggle="modal" data-id="{{this._id}}"
+                        data-target="#delete-course-modal">Xóa</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- delete --}}
+<div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Có muốn xóa không đóo</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Hủy</button>
+                <button id="btn-delete-course" type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Delete form --}}
+<form name="delete-course-form" method="POST"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var courseId;
+        //lấy ra thẻ form dùng để thay đổi method là DELETE
+        //lí do để thay đổi method là do ở trang delete ko có course._id
+        //do nó hiện cả list các khóa học.
+        // course._id chỉ có ở trang /edit vì khi nhấn vào sửa thì nó sẽ lấy ra từng khóa học
+        var deleteForm = document.forms['delete-course-form'];
+
+        $('#delete-course-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            courseId = button.data('id');// lấy ra id của khóa học
+
+        });
+        var btnDeleteCourse = document.getElementById('btn-delete-course');
+        btnDeleteCourse.onclick = function () {
+            //.action : là để thay đổi method của form sang method khác bằng js
+            deleteForm.action = '/courses/' + courseId + '?_method=DELETE';
+            deleteForm.submit();//submit(): sau khi thay đổi thì sẽ submit thay đổi lên thẻ form 
+            //nhằm thay đổi đẩy lên overide method của chúng ta, để thay đổi sang
+            //method là DELETE
+        }
+    });
+</script>

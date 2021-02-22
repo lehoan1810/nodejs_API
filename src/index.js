@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const methodOverride = require('method-override');
 const handlebars = require('express-handlebars');
 const { extname } = require('path');
 const app = express();
@@ -16,9 +17,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 //HTPP logger
 app.use(morgan('combined')); 
 
+//
+app.use(methodOverride('_method'));
 //Template engine
 app.engine('hbs', handlebars({
-  extname: '.hbs'
+  extname: '.hbs',
+  helpers : { 
+    sum: function (a, b) {
+      return a + b;
+        }
+    } 
 }));
 
 app.set('view engine', 'hbs');
