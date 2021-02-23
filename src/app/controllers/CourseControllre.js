@@ -5,8 +5,10 @@ class CourseController{
     //[GET] /
     // [GET] /search
     show(req, res, next) {
-        Course.findOne({ slug: req.params.slug })//dùng để lấy 1 bảng ghi hay 1 dữ liệu gì đó
-        //[GET]                                  //trong CSDL ví dụ như 1 khóa học
+        Course.findOne({ slug: req.params.slug })
+        //dùng để lấy 1 bảng ghi hay 1 dữ liệu gì đó
+        //trong CSDL ví dụ như 1 khóa học
+            //[GET]
             .then(course => {
                 res.render('courses/show', {
                     course: mongooseToOject(course)
@@ -23,7 +25,7 @@ class CourseController{
     store(req, res, next) {
         const course = new Course(req.body);//tạo dữ liệu vào mongoose
         course.save()
-            .then(() => res.redirect('/'))
+            .then(() => res.redirect('/me/stored/courses'))
             .catch(err => {
                 
             })
@@ -41,15 +43,29 @@ class CourseController{
     //[PUT] /courses/:id 
     update(req, res, next) {
         Course.updateOne({ _id: req.params.id }, req.body)
-        //          //lấy _id của bài viết đó    //dữ liệu mún chỉnh sửa
+                  //lấy _id của bài viết đó    //dữ liệu mún chỉnh sửa
                                            
             // .redirect là dùng để điều hướng về trang khác trương ứng với đường dẫn
             .then(() => res.redirect('/me/stored/courses'))
             .catch (next);
     }
+
     //[DELETE] /courses/:id
     destroy(req, res, next) {
+        Course.delete({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch (next);
+    }
+    //[DELETE] /courses/:id/force
+    forceDestroy(req, res, next) {
         Course.deleteOne({ _id: req.params.id })
+            .then(() => res.redirect('back'))
+            .catch(next);
+    }
+        
+    //[PATCH] /courses/:id/restore
+    restore(req, res, next) {
+        Course.restore({ _id: req.params.id })
             .then(() => res.redirect('back'))
             .catch (next);
     }
