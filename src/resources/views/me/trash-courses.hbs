@@ -89,7 +89,7 @@
             //method là DELETE
         }
         restoreBtn.click(function (e) {
-            e.preventDefault(); // loại bỏ hành vi mặc định cho thẻ
+            e.preventDefault(); // loại bỏ hành vi mặc định cho thẻ a, hành vi refesh lại trang
             var courseId = $(this).data('id');
             restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
             restoreForm.submit();

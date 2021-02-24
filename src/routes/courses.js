@@ -6,6 +6,7 @@ const courseController = require('../app/controllers/CourseControllre');
 route.get('/create', courseController.create);
 route.post('/store', courseController.store);
 route.get('/:id/edit', courseController.edit);//load ra trang hiển thị dữ liệu để edit
+route.post('/handler-form-actions', courseController.handleFormActions);
 route.put('/:id', courseController.update);// dùng để cập nhập chỉnh sửa
 route.patch('/:id/restore', courseController.restore);
 route.delete('/:id', courseController.destroy);

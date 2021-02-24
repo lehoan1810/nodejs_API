@@ -5,6 +5,9 @@ class MeController{
     storedCourses(req, res, next) {
         Promise.all([Course.find({}), Course.countDocumentsDeleted()])
             .then(([courses, deletedCount]) =>
+                //.then() giá trị trả về sẽ là 1 mảng
+                //đối số thứ nhất sẽ là giá trị thành công của Course.find
+                //đối số thứ 2 sẽ là giá trị thành công của Course.countDocumentsDeleted
                 res.render('me/stored-courses', {
                     deletedCount: deletedCount,
                     courses: multipleMogooseToOject(courses)
