@@ -1,10 +1,13 @@
 const Course = require('../models/Course');
 const { multipleMogooseToOject } = require('../../util/mongoose');
-class MeController{
+class MeController{ 
 
     storedCourses(req, res, next) {
-        Promise.all([Course.find({}), Course.countDocumentsDeleted()])
+        let CourseQuery = Course.find({});
+
+        Promise.all([CourseQuery, Course.countDocumentsDeleted()])
             .then(([courses, deletedCount]) =>
+                //.course.find() là lấy hết giá trị trong database ra ngoài view
                 //.then() giá trị trả về sẽ là 1 mảng
                 //đối số thứ nhất sẽ là giá trị thành công của Course.find
                 //đối số thứ 2 sẽ là giá trị thành công của Course.countDocumentsDeleted

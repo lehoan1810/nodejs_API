@@ -18,15 +18,26 @@
         </div>
 
     </div>
+
     <table class="table mt-4">
         <thead>
             <tr>
                 <th scope="col">check</th>
                 <th scope="col">Stt</th>
-                <th scope="col">Trình độ</th>
-                <th scope="col">Nội dung</th>
-                <th scope="col">Trình độ</th>
-                <th scope="col" colspan="2">thời gian tạo</th>
+                <th scope="col">
+                    Tên bài viết
+                    {{{sortable 'name' _sort}}}
+
+                </th>
+                <th scope="col">Nội dung
+                    {{{sortable 'description' _sort}}}
+                </th>
+                <th scope="col">Trình độ
+                    {{{sortable 'level' _sort}}}
+                </th>
+                <th scope="col" colspan="2">thời gian tạo
+                    {{{sortable 'createdAt' _sort}}}
+                </th>
             </tr>
         </thead>
         <tbody>
